@@ -20,10 +20,18 @@ Who: **Antti** writes it; **agent** drafts it, Antti reviews.
 - [ ] iOS, Android and web apps: folder per client, how specs reach
       every client, "tested" trailers for clients this host cannot
       build (Antti decides scope, agent drafts)
-- [ ] Agentic affordances: what lets an agent run, inspect and verify
-      the app alone; e.g. an agent API, a CLI to query state, dev
-      login without secrets, seed data, readable logs, screenshots of
-      each client (agent drafts, Antti picks)
+- [ ] Agentic affordances: agents use the app as well as build it
+      (agent drafts from Ping, Antti picks):
+      - Use: `/llms.txt` guide (signup, auth, rules, limits),
+        discoverable from the page (`service-doc` link, `Link` header,
+        1 px body link), 404 for unknown paths; full API reference at
+        `/api.md`; plain JSON API with sentence errors; bearer tokens
+        per program, revoked one by one, untouched by password change;
+        long poll `GET /api/wait` and HMAC-signed webhooks; rate limits
+        that answer 429 with the reason
+      - Build: an agent can run, inspect and verify the app alone; CLI
+        to query state, dev login without secrets, seed data, readable
+        logs, screenshots of each client
 
 ## Proposed
 
