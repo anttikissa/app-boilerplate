@@ -12,8 +12,12 @@ Who: **Antti** writes it; **agent** drafts it, Antti reviews.
       folder (agent, from `~/ghost/deploy`)
 - [ ] Environments: dev, prod (staging?); ports, data folders, config
       by command-line flags and gitignored files (Antti)
-- [ ] Database (bun:sqlite): schema, numbered migrations, `-- breaking`
-      marker, backups before migrate (agent)
+- [ ] Database: numbered migrations, `-- breaking` marker, backups
+      before migrate (agent). SQLite (bun:sqlite) is the default for
+      tests and small deployments; all SQL also runs on Postgres, so
+      a project can move when it grows. When the potential scale is
+      big (e.g. a chat app with >10,000 simultaneous users), consider
+      sharding support from the start, but confirm with the user first
 - [ ] Design spec (`design/`) and STYLE.md: spec is the source of
       truth; `Code:` lines; commit-msg hook that fails code changes
       without spec changes (agent drafts the frame, Antti the taste)
