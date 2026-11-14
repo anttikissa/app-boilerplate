@@ -20,6 +20,10 @@ Who: **Antti** writes it; **agent** drafts it, Antti reviews.
 - [ ] iOS, Android and web apps: folder per client, how specs reach
       every client, "tested" trailers for clients this host cannot
       build (Antti decides scope, agent drafts)
+- [ ] Agentic affordances: what lets an agent run, inspect and verify
+      the app alone; e.g. an agent API, a CLI to query state, dev
+      login without secrets, seed data, readable logs, screenshots of
+      each client (agent drafts, Antti picks)
 
 ## Proposed
 
