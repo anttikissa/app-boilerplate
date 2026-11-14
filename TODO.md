@@ -36,6 +36,14 @@ Who: **Antti** writes it; **agent** drafts it, Antti reviews.
       - Build: an agent can run, inspect and verify the app alone; CLI
         to query state, dev login without secrets, seed data, readable
         logs, screenshots of each client
+- [ ] Logging: how to do it; format (structured or plain lines),
+      levels, where logs live per environment, rotation, how agents
+      and people read them; every failure reaches the user complete
+      (agent drafts from Ping `server/log.ts` and Hal, Antti picks)
+- [ ] ASON and other building blocks: copy proven self-contained
+      modules with their test suites; start with Hal's
+      `src/common/ason.ts` and `src/host/live-file.ts`, then survey
+      Hal and Ping for more (agent lists, Antti picks)
 
 ## Proposed
 
@@ -49,8 +57,6 @@ Who: **Antti** writes it; **agent** drafts it, Antti reviews.
       raw CDP; smoke test on a throwaway database (agent)
 - [ ] Auth: accounts, sessions, signup policy (Antti)
 - [ ] Secrets: where they live, how agents stay out of them (Antti)
-- [ ] Errors and logs: every failure reaches the user complete;
-      server log location and rotation (agent)
 - [ ] Push notifications: web push, APNs, FCM (agent, later)
 - [ ] Client offline cache and scroll-position rule (agent)
 - [ ] Region defaults: phone codes, 12/24-hour clock from the device
