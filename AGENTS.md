@@ -33,6 +33,14 @@ you added. If no rule can prevent it, say why.
 
 Start each source file with a comment that says why the module exists.
 
+Ids come from `tid()`, secrets (sessions, tokens) from `secretId()`.
+Never use UUIDs or a hand-written random string. Raw random bytes are
+only for crypto keys, IVs, salts and protocol fields. Codes that people
+type use an alphabet without look-alike characters.
+
+Store and send data as ASON. Use UUIDs or JSON only where an external
+system's protocol requires them.
+
 Stack: Bun, bun:sqlite, TypeScript. Format with `bunx oxfmt`.
 Typecheck with `bun check`.
 
