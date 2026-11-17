@@ -1,0 +1,11 @@
+{
+	"name": "app-boilerplate",
+	"type": "module",
+	"scripts": {
+		"format": "oxfmt",
+		"typecheck": "bun check"
+	},
+	"devDependencies": {
+		"oxfmt": "0.79.0"
+	}
+}
