@@ -35,8 +35,16 @@ Start each source file with a comment that says why the module exists.
 
 Ids come from `tid()`, secrets (sessions, tokens) from `secretId()`.
 Never use UUIDs or a hand-written random string. Raw random bytes are
-only for crypto keys, IVs, salts and protocol fields. Codes that people
-type use an alphabet without look-alike characters.
+only for crypto keys, IVs, salts and protocol fields.
+
+Make random ids and secrets as short as their use allows. Size each one
+from how many valid values exist, how long they live and how fast an
+attacker can guess (rate limits cut the odds a lot); a temporary image
+URL needs only enough characters to stop guessing. One-time codes can
+be shortest: 4 base32 characters have the entropy of 6 digits.
+
+Encode alphanumeric ids and codes in Crockford base32: write lower
+case, read leniently (any case; o as 0; i and l as 1).
 
 Store and send data as ASON. Use UUIDs or JSON only where an external
 system's protocol requires them.
