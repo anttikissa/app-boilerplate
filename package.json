@@ -6,6 +6,7 @@
 		"typecheck": "bun check"
 	},
 	"devDependencies": {
+		"@types/bun": "1.4.4",
 		"oxfmt": "0.79.0"
 	}
 }

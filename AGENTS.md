@@ -13,9 +13,11 @@ dependencies, one line, then the minimum code that works. Never cut
 trust-boundary validation, data-loss handling, security,
 accessibility or explicit requirements.
 
-No new dependencies without the user's approval. Propose one only with
-its exact line count, including all transitive dependencies, with the
-version and the counting method.
+Use as few dependencies as possible, above all ones that reach users
+(the server at runtime, the client bundle); dev-only type packages
+such as `@types/bun` are fine. No new dependency without the user's
+approval. Propose one only with its exact line count, including all
+transitive dependencies, with the version and the counting method.
 
 Avoid defensive, just-in-case code. Rate how often each case occurs:
 always, often, sometimes, rarely, almost never or practically never.
