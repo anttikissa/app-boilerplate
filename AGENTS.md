@@ -52,6 +52,11 @@ system's protocol requires them.
 Stack: Bun, bun:sqlite, TypeScript. Format with `bunx oxfmt`.
 Typecheck with `bun check`.
 
+Open every SQLite database with `PRAGMA journal_mode=WAL;
+PRAGMA synchronous=NORMAL;`. The default mode waits for the disk on
+every write (35 ms per UPDATE measured on a network volume) and
+blocks the thread meanwhile.
+
 ## Tests
 
 `./test` runs `bun check` beside `bun test --parallel`; run it for
