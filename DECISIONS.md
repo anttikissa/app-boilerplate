@@ -41,16 +41,6 @@ obvious.
 - Push notifications are built in when the app needs them. The
   permission prompt comes only from a user action that needs it, never
   on first load.
-- Web: no browser alert, confirm or prompt dialogs. They title themselves
-  with the domain ("example.com says"), ignore the app's style and
-  block the page. The first time the app needs a question or a notice,
-  build an in-app dialog component on the native `<dialog>` element;
-  every later one reuses it.
-- Web: a dialog opens with focus on its first input, or on the least
-  destructive button for actions that can't be undone. Show the focus
-  style only for keyboard use, never on touch devices. Review: open
-  each dialog by tap with touch emulation and check that no focus style
-  shows.
 - Web on iOS: never set `apple-mobile-web-app-status-bar-style` to
   `black-translucent`; iOS 27 then blurs the top of Home Screen apps.
   On iOS 26+, render an unpainted strip first in the app root: an 11px
@@ -58,6 +48,55 @@ obvious.
   `background-clip: text`, shown only in standalone mode on iOS
   (`@supports (-webkit-touch-callout: none)`). It stops iOS from
   drawing its scroll-edge blur under the status bar.
+
+## Web controls
+
+The first time the app needs one of these, build it as an app
+component; later uses reuse it.
+
+- Dialogs: the `<dialog>` element, opened as a modal. Never `alert`,
+  `confirm` or `prompt`: they title themselves with the domain
+  ("example.com says") and block the page.
+- A dialog opens with focus on its first input, or on the least
+  destructive button for actions that can't be undone. Show the focus
+  style only for keyboard use, never on touch devices. Review: open
+  each dialog by tap with touch emulation and check that no focus style
+  shows.
+- Dropdowns: a `<select>` styled with customizable select
+  (`appearance: base-select`). Chrome and Safari support it; Firefox
+  shows its own list for now.
+- Numbers: a text input with `inputmode="numeric"`, parsed in code. A
+  number input drops leading zeros, accepts "e" and changes its value
+  on scroll.
+- Dates and times: an app picker. Browser pickers follow the system
+  locale and ignore the app's 24-hour clock setting.
+- Tooltips: an app component that shows at once on hover and on
+  keyboard focus. Never the `title` attribute: it shows after a long
+  delay and never on touch. Add tooltips only where users will want
+  more information, or where a control is unclear on first use but
+  obvious afterwards. Touch has no hover, so needed information never
+  lives only in a tooltip.
+
+## Forms
+
+- No browser validation: every form has `novalidate`, and the app
+  shows its own message under each field.
+- With more than one form, use one validation helper, such as
+  `validate.ts` from https://github.com/anttikissa/building-blocks
+  (copy the file). Define each schema once and use it on the server and
+  the client, so the rules match. The server always validates again.
+- Show errors when they help:
+  - While the user types, unfinished values get no error. "Too short"
+    after one character is wrong. Check when the user leaves the field,
+    or on submit.
+  - Once a field shows an error, check it on every keystroke, so the
+    error goes away as soon as the value is fixed.
+  - Run checks that only the server can do (for example, "name taken")
+    while the user types. Send the request after a short pause (about
+    300 ms), and ignore answers for older values.
+  - On submit, check every field and move focus to the first error.
+- Link each error to its field (`aria-describedby`), so screen readers
+  read it.
 
 ## Updates
 
