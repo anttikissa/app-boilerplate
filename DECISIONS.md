@@ -41,7 +41,7 @@ obvious.
 - Push notifications are built in when the app needs them. The
   permission prompt comes only from a user action that needs it, never
   on first load.
-- No browser alert, confirm or prompt dialogs. They title themselves
+- Web: no browser alert, confirm or prompt dialogs. They title themselves
   with the domain ("example.com says"), ignore the app's style and
   block the page. The first time the app needs a question or a notice,
   build an in-app dialog component on the native `<dialog>` element;
