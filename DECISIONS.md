@@ -46,6 +46,11 @@ obvious.
   block the page. The first time the app needs a question or a notice,
   build an in-app dialog component on the native `<dialog>` element;
   every later one reuses it.
+- Web: a dialog opens with focus on its first input, or on the least
+  destructive button for actions that can't be undone. Show the focus
+  style only for keyboard use, never on touch devices. Review: open
+  each dialog by tap with touch emulation and check that no focus style
+  shows.
 - Web on iOS: never set `apple-mobile-web-app-status-bar-style` to
   `black-translucent`; iOS 27 then blurs the top of Home Screen apps.
   On iOS 26+, render an unpainted strip first in the app root: an 11px
