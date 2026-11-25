@@ -37,3 +37,11 @@ placeholder and tell the user.
 - Review: with a dark theme, add dark screenshots for a new component
   or a new combination of colors or backgrounds; UI built from existing
   ones needs one theme.
+- Shapes: pick one family and keep it. Pills mix with square corners,
+  never with lightly rounded boxes. A rounded box inside another takes
+  the parent's radius minus the padding between them (concentric).
+- Pill padding: side padding at least half the pill's height; less
+  only beside a trailing mark such as a chevron.
+- Focus: one focus style for the whole app, keyboard only
+  (`:focus-visible`). A ring follows the element's shape and sits
+  outside its padding, so it never touches the content.
