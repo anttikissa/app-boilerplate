@@ -61,7 +61,9 @@ component; later uses reuse it.
   shows.
 - Dropdowns: a `<select>` styled with customizable select
   (`appearance: base-select`). Chrome and Safari support it; Firefox
-  shows its own list for now.
+  shows its own list for now, with only the text of each option. Put
+  spaces between the parts of a rich option (icon, name, description)
+  so that text reads well.
 - Numbers: a text input with `inputmode="numeric"`, parsed in code. A
   number input drops leading zeros, accepts "e" and changes its value
   on scroll.
