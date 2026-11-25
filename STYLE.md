@@ -3,6 +3,10 @@
 The look of every client. Values marked placeholder are the
 boilerplate's; a new project replaces them.
 
+Every component uses these values and the app's existing CSS. When a
+needed value is missing, pick a plain default, add it here marked
+placeholder and tell the user.
+
 ## App icon
 
 - Placeholder: a gray circle, oklch(0.55 0 0) (#717171), with a white
