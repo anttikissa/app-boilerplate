@@ -41,13 +41,10 @@ obvious.
 - Push notifications are built in when the app needs them. The
   permission prompt comes only from a user action that needs it, never
   on first load.
-- Web on iOS: never set `apple-mobile-web-app-status-bar-style` to
-  `black-translucent`; iOS 27 then blurs the top of Home Screen apps.
-  On iOS 26+, render an unpainted strip first in the app root: an 11px
-  `position: fixed` bar at the top, background in the page color with
-  `background-clip: text`, shown only in standalone mode on iOS
-  (`@supports (-webkit-touch-callout: none)`). It stops iOS from
-  drawing its scroll-edge blur under the status bar.
+- Home Screen web apps on iOS blur content under the status bar. Never
+  set `apple-mobile-web-app-status-bar-style` to `black-translucent`,
+  and add a fixed 11px top strip in the page color with
+  `background-clip: text`, in standalone mode only.
 
 ## Web controls
 
