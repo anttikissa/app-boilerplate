@@ -46,6 +46,13 @@ obvious.
   block the page. The first time the app needs a question or a notice,
   build an in-app dialog component on the native `<dialog>` element;
   every later one reuses it.
+- Web on iOS: never set `apple-mobile-web-app-status-bar-style` to
+  `black-translucent`; iOS 27 then blurs the top of Home Screen apps.
+  On iOS 26+, render an unpainted strip first in the app root: an 11px
+  `position: fixed` bar at the top, background in the page color with
+  `background-clip: text`, shown only in standalone mode on iOS
+  (`@supports (-webkit-touch-callout: none)`). It stops iOS from
+  drawing its scroll-edge blur under the status bar.
 
 ## Updates
 
