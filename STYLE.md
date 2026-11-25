@@ -45,3 +45,10 @@ placeholder and tell the user.
 - Focus: one focus style for the whole app, keyboard only
   (`:focus-visible`). A ring follows the element's shape and sits
   outside its padding, so it never touches the content.
+- One highlight: a list or menu fills one item at a time (pointer
+  first, else keyboard). Fills that must touch merge into one shape,
+  never two rounded boxes side by side.
+- Marks: icons are SVG paths centered in their view box. Their ink
+  centers within 0.5 px on their shape, or on the middle of the
+  capitals of the text beside them (above the line's middle). Measure
+  in the pixels; fix any off-center mark on sight.
