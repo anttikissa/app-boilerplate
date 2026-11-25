@@ -55,10 +55,13 @@ component; later uses reuse it.
   `confirm` or `prompt`: they title themselves with the domain
   ("example.com says") and block the page.
 - A dialog opens with focus on its first input, or on the least
-  destructive button for actions that can't be undone. Show the focus
-  style only for keyboard use, never on touch devices. Review: open
-  each dialog by tap with touch emulation and check that no focus style
-  shows.
+  destructive button for actions that can't be undone.
+- Focus: style only `:focus-visible`, never `:focus`, and detect no
+  input method in code. The browser then shows the style on text fields
+  at every focus and on other controls only after keyboard use. Prefer
+  the browser's own ring; a custom one is one `outline` with an
+  `outline-offset`, at least 3:1 contrast against the page. Never
+  remove the ring without a replacement.
 - Dropdowns: a `<select>` styled with customizable select
   (`appearance: base-select`). Chrome and Safari support it; Firefox
   shows its own list for now, with only the text of each option. Put
