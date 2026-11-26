@@ -5,7 +5,7 @@ and later an Android client. A new project copies it and replaces this
 paragraph with what the app is. Read DECISIONS.md before changing
 behavior. Record each new decision there, by topic.
 
-## Code
+## General coding guidance
 
 Climb the lazy ladder: skip code that need not exist; prefer the
 standard library, native platform features (Bun, Web APIs), installed
@@ -16,19 +16,18 @@ accessibility or explicit requirements.
 Use as few dependencies as possible, above all ones that reach users
 (the server at runtime, the client bundle); dev-only type packages
 such as `@types/bun` are fine. No new dependency without the user's
-approval. Propose one only with its exact line count, including all
-transitive dependencies, with the version and the counting method.
+approval.
 
 Avoid defensive, just-in-case code. Rate how often each case occurs:
 always, often, sometimes, rarely, almost never or practically never.
 For a case rated "rarely" or below, ask the user whether to handle it
 before you write code for it.
 
-Every bug fix starts with its class. Find the root cause: the design
-choice or missing rule that made this bug possible, not only the line
-that failed. Search for its other instances on every client and fix
-them, or list them for the user. Then add a rule to this file (or the
-spec) that prevents the whole class, and say in the reply which rule
+Generalize every bug fix. Find the root cause: the design choice or
+missing rule that made this bug possible. Search for its other
+instances on every client, fix them, or list them for the user if the
+fix is not straightforward. Then add a rule to this file (or the spec)
+that prevents the whole class of bugs. State to the user which rule
 you added. If no rule can prevent it, say why.
 
 Start each source file with a comment that says why the module exists.
@@ -52,10 +51,36 @@ system's protocol requires them.
 Stack: Bun, bun:sqlite, TypeScript. Format with `bunx oxfmt`.
 Typecheck with `bun check`.
 
-Open every SQLite database with `PRAGMA journal_mode=WAL;
-PRAGMA synchronous=NORMAL;`. The default mode waits for the disk on
-every write (35 ms per UPDATE measured on a network volume) and
-blocks the thread meanwhile.
+## Specific coding details
+
+Reference rules for agents (humans can skip this section).
+
+Open every SQLite database with `PRAGMA busy_timeout=5000;` BEFORE
+`PRAGMA journal_mode=WAL; PRAGMA synchronous=NORMAL;`. Without
+`busy_timeout` set first, concurrent openers crash with
+`SQLITE_BUSY_RECOVERY` during WAL initialization/recovery; without
+WAL+NORMAL, the default mode waits for the disk on every write
+(35 ms per UPDATE measured on a network volume) and blocks the thread
+meanwhile.
+
+In the web client, trap and wrap `Tab` / `Shift-Tab` across visible
+focusable descendants of the topmost open `dialog:modal` so focus
+never escapes to `document.body` or lands on the `<dialog>` container
+itself in WebKit or Safari.
+
+In the SolidJS web client, every controlled `<select>` whose
+`<option>` or `<optgroup>` children are rendered dynamically
+(`<For>` / `<Show>`) must set `selected={...}` on each `<option>` AND
+sync `el.value` in a `createEffect` tracking both the selected value
+and the options list, because replacing `<option>` DOM nodes resets
+the browser's `selectedIndex` to `0`.
+
+For web keyboard shortcuts, use `Cmd` (without `Ctrl`) on macOS and
+`Ctrl` elsewhere rather than `e.metaKey || e.ctrlKey` so macOS Emacs
+editing keys (`Ctrl+A/E/K/B/L/P/N`) stay free; never intercept
+browser-owned shortcuts (`Cmd/Ctrl+L`, `R`, `T`, `W`); and never
+hijack editor keys in capture-phase listeners when an editable
+element is focused.
 
 ## Tests
 
@@ -72,6 +97,12 @@ Tests never use the network. Delete a flaky test; never retry it,
 lengthen its timeout or skip it. Test behavior, not source text.
 
 ## Git
+
+Commit as soon as each change works and is verified; don't leave
+finished work uncommitted. Several agents share this checkout, so
+stage and commit only your own changes: name files explicitly (never
+`git add -A` or `.`), and when a file also holds someone else's
+edits, stage only your hunks.
 
 Wrap commit messages at 72 columns. End with these trailers:
 
